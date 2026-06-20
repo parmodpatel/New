@@ -11,12 +11,12 @@ export const ScrollableVideoViewer: React.FC<ScrollableVideoViewerProps> = ({
   framesPath = '/frames',
   totalFrames = 300,
 }) => {
-  const [zoom, setZoom] = useState(1);
+  const [zoom] = useState(1);
   const [currentFrame, setCurrentFrame] = useState(0);
   const [offsetX, setOffsetX] = useState(0);
   const [offsetY, setOffsetY] = useState(0);
   const [isScrolling, setIsScrolling] = useState(false);
-  const scrollTimeoutRef = useRef<NodeJS.Timeout | null>(null);
+  const scrollTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const containerRef = useRef<HTMLDivElement>(null);
 
   const getScrollText = () => {
