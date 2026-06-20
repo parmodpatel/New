@@ -1,0 +1,130 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Global styles for smooth scrolling experience */
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  body {
+    @apply bg-black text-white overflow-hidden;
+    margin: 0;
+    padding: 0;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+      'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+      sans-serif;
+  }
+
+  * {
+    box-sizing: border-box;
+  }
+}
+
+/* Custom animations for overlay elements */
+@layer components {
+  .video-container {
+    @apply relative w-full h-screen overflow-hidden;
+  }
+
+  .frame-image {
+    @apply absolute inset-0 w-full h-full object-cover;
+    will-change: transform;
+  }
+
+  .overlay-text {
+    @apply fixed inset-0 flex items-center justify-center pointer-events-none;
+    will-change: transform, opacity;
+  }
+
+  .progress-indicator {
+    @apply fixed bottom-0 left-0 h-1 bg-gray-900;
+    width: 0%;
+    will-change: width;
+  }
+}
+
+/* Smooth transitions */
+@layer utilities {
+  .smooth-transition {
+    @apply transition-all duration-300 ease-smooth;
+  }
+
+  .smooth-transform {
+    @apply will-change-transform;
+  }
+
+  .smooth-opacity {
+    @apply will-change-opacity;
+  }
+
+  /* Disable text selection during video experience */
+  .no-select {
+    @apply select-none;
+  }
+
+  /* Loading spinner animation */
+  @keyframes spin-custom {
+    to {
+      transform: rotate(360deg);
+    }
+  }
+
+  .animate-spin-custom {
+    animation: spin-custom 1s linear infinite;
+  }
+
+  /* Parallax text animation */
+  @keyframes parallax-float {
+    0%, 100% {
+      transform: translateY(0px);
+    }
+    50% {
+      transform: translateY(-10px);
+    }
+  }
+
+  .animate-parallax-float {
+    animation: parallax-float 4s ease-in-out infinite;
+  }
+
+  /* Fade in animation */
+  @keyframes fade-in {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+
+  .animate-fade-in {
+    animation: fade-in 0.5s ease-in-out;
+  }
+}
+
+/* Mobile responsive adjustments */
+@media (max-width: 768px) {
+  body {
+    font-size: 14px;
+  }
+
+  .overlay-text h1 {
+    @apply text-4xl md:text-6xl;
+  }
+
+  .overlay-text p {
+    @apply text-lg md:text-xl;
+  }
+}
+
+/* Prevent jank on transform animations */
+.will-change-performance {
+  will-change: transform, opacity;
+  transform: translateZ(0);
+  backface-visibility: hidden;
+  perspective: 1000px;
+}
